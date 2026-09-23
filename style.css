@@ -200,3 +200,79 @@ body.motion-ready .gallery-item[data-reveal]{transition-duration:1700ms}
 @media(max-width:760px){.hero-photo{background-size:auto 200%;background-position:center 34%}}
 @media(max-width:760px){.ticker{display:none}}
 @media (max-width:760px),(pointer:coarse){.ticker,.ticker div{display:none!important;animation:none!important}}
+
+/* Navegação e feedback: movimento curto, usando apenas transform e opacity. */
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+.brand { font-size: 18px; transition: color 180ms ease; }
+.brand img { width: 48px; height: 48px; transition: transform 220ms var(--ease-out, ease-out); }
+.brand small { font-size: 9px; }
+@media (hover: hover) and (pointer: fine) {
+  .brand:hover img { transform: scale(1.06); }
+}
+.nav a:not(.nav-cta) { transition: color 180ms ease, transform 180ms var(--ease-out, ease-out); }
+.nav a:not(.nav-cta):hover { transform: translateY(-2px); }
+.nav-cta { transition: border-color 180ms ease, color 180ms ease, transform 180ms var(--ease-out, ease-out); }
+.nav-cta:hover { border-color: var(--green); transform: translateY(-2px); }
+.nav-cta .arrow-icon, .button .arrow-icon, .text-link .arrow-icon, .under-link .arrow-icon { transition: transform 180ms var(--ease-out, ease-out); }
+.nav-cta:hover .arrow-icon, .button:hover .arrow-icon, .text-link:hover .arrow-icon, .under-link:hover .arrow-icon { transform: translate(2px, -2px); }
+.button, .service-card > a, .contact-option, .menu-toggle { transition: transform 160ms var(--ease-out, ease-out), background-color 180ms ease, border-color 180ms ease, color 180ms ease; }
+.button:active, .service-card > a:active, .contact-option:active { transform: scale(.98); }
+.menu-toggle span { transition: transform 180ms var(--ease-out, ease-out), opacity 180ms ease; }
+.menu-toggle[aria-expanded="true"] span:first-child { transform: translateY(3.5px) rotate(45deg); }
+.menu-toggle[aria-expanded="true"] span:last-child { transform: translateY(-3.5px) rotate(-45deg); }
+@media (max-width: 760px) {
+  .brand { font-size: 17px; }
+  .brand img { width: 42px; height: 42px; }
+  .nav { display: flex; visibility: hidden; opacity: 0; transform: translateY(-8px); pointer-events: none; transition: opacity 180ms ease, transform 180ms var(--ease-out, ease-out), visibility 180ms; }
+  .nav.open { visibility: visible; opacity: 1; transform: translateY(0); pointer-events: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .brand img, .nav a, .nav-cta, .nav-cta .arrow-icon, .button .arrow-icon, .text-link .arrow-icon, .under-link .arrow-icon, .button, .service-card > a, .contact-option, .menu-toggle span { transition-duration: 0.01ms; }
+  body.motion-ready [data-reveal] { transition-duration: 220ms; }
+}
+/* Mantém as entradas de conteúdo rápidas enquanto a página é percorrida. */
+body.motion-ready [data-reveal] { transition-duration: 650ms !important; }
+body.motion-ready .gallery-item[data-reveal] { transition-duration: 650ms !important; }
+.nav a[aria-current="location"] { color: var(--green); }
+@media (prefers-reduced-motion: reduce) {
+  body.motion-ready [data-reveal], body.motion-ready .gallery-item[data-reveal] { transition-duration: 220ms !important; }
+}
+
+/* Visualização ampliada da galeria. */
+.gallery-item { cursor: zoom-in; }
+.gallery-item:focus-visible { outline: 2px solid var(--green); outline-offset: 4px; }
+.gallery-lightbox {
+  width: min(94vw, 1500px);
+  max-width: none;
+  max-height: 94vh;
+  padding: 54px 18px 18px;
+  border: 1px solid #ffffff24;
+  background: #080b09;
+  color: var(--white);
+  overflow: visible;
+}
+.gallery-lightbox::backdrop { background: #000c; backdrop-filter: blur(5px); }
+.gallery-lightbox[open] { animation: lightbox-enter 180ms var(--ease-out, ease-out) both; }
+.gallery-lightbox img { display: block; width: 100%; max-height: calc(94vh - 100px); object-fit: contain; }
+.gallery-lightbox figcaption { padding: 13px 3px 0; color: var(--muted); font-size: 12px; }
+.gallery-lightbox-close {
+  position: absolute; top: 10px; right: 10px; width: 36px; height: 36px;
+  border: 1px solid #ffffff45; background: #080b09; color: white; font-size: 24px;
+  line-height: 1; cursor: pointer; transition: transform 160ms var(--ease-out, ease-out), border-color 160ms ease;
+}
+.gallery-lightbox-close:hover { border-color: var(--green); transform: rotate(90deg); }
+@keyframes lightbox-enter { from { opacity: 0; transform: scale(.97); } to { opacity: 1; transform: scale(1); } }
+@media (max-width: 760px) {
+  .gallery-lightbox { width: 96vw; padding: 50px 10px 12px; }
+  .gallery-lightbox img { max-height: calc(90vh - 95px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gallery-lightbox[open] { animation: none; }
+  .gallery-lightbox-close { transition-duration: 0.01ms; }
+}
+/* A marca usa a mesma família condensada dos títulos principais. */
+.brand { font-family: var(--display); font-weight: 700; letter-spacing: .01em; }
+.brand small { font-family: var(--body); }

@@ -198,3 +198,5 @@ body.motion-ready .gallery-item[data-reveal]{transition-duration:1700ms}
 }
 @media(max-width:760px){.hero-photo{background-size:auto 180%;background-position:center 20%}}
 @media(max-width:760px){.hero-photo{background-size:auto 200%;background-position:center 34%}}
+@media(max-width:760px){.ticker{display:none}}
+@media (max-width:760px),(pointer:coarse){.ticker,.ticker div{display:none!important;animation:none!important}}

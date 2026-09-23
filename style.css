@@ -146,3 +146,21 @@ body.motion-ready .gallery-item[data-reveal]{transition-duration:1700ms}
 .gallery-item img{transition-duration:900ms}
 /* A chamada do topo permanece visível desde o primeiro quadro. */
 .hero-content .eyebrow{animation:none;opacity:1;visibility:visible;transform:none}
+/* No celular, a foto ganha uma faixa própria acima do conteúdo do hero. */
+@media(max-width:760px){
+  .hero{height:auto;min-height:0;max-height:none;display:flex;flex-direction:column;align-items:stretch;padding:0 0 30px;overflow:hidden}
+  .hero-photo{position:relative;inset:auto;left:0;width:100%;height:min(68svh,590px);min-height:420px;max-height:590px;background-position:center 18%;background-size:cover;transform:none}
+  .hero-shade{inset:0 0 auto;height:min(68svh,590px);width:100%;background:linear-gradient(0deg,#080b09 0%,#080b0918 25%,transparent 58%)}
+  .hero-content{align-self:stretch;max-width:none;padding:18px 24px 0;animation:none}
+  .hero-content .eyebrow{margin-bottom:0}
+  .hero-content h1{font-size:clamp(62px,15vw,88px);margin:18px 0}
+  .hero-content>p{max-width:440px}
+  .hero-note{margin-top:30px}
+  .hero-vertical,.hero-index{display:none}
+}
+.arrow-icon{display:inline-block;width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle;flex:none}
+.principle-icon .arrow-icon{width:25px;height:25px}
+.service-arrow .arrow-icon,.contact-arrow .arrow-icon{width:16px;height:16px}
+.text-link .arrow-icon{margin-left:5px}
+.under-link .arrow-icon{margin-left:8px}
+@media(max-width:760px){.hero-actions .button{white-space:nowrap}.hero-actions .arrow-icon{width:14px;height:14px}}

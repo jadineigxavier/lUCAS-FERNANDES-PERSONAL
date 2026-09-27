@@ -46,3 +46,35 @@ if ('IntersectionObserver' in window) {
   // Alternativa para navegadores sem IntersectionObserver: mostra tudo sem atraso.
   revealTargets.forEach((element) => element.setAttribute('data-visible', ''));
 }
+
+// Galeria: abre cada foto em tamanho original dentro de um diálogo acessível.
+const imageModal = document.querySelector('.image-modal');
+const modalPhoto = imageModal.querySelector('.image-modal-photo');
+const modalCaption = imageModal.querySelector('.image-modal-caption');
+const closeImageModal = imageModal.querySelector('.image-modal-close');
+
+document.querySelectorAll('.gallery-item img').forEach((photo) => {
+  photo.tabIndex = 0;
+  photo.setAttribute('role', 'button');
+  photo.setAttribute('aria-label', `Ampliar foto: ${photo.alt}`);
+
+  const openPhoto = () => {
+    modalPhoto.src = photo.currentSrc || photo.src;
+    modalPhoto.alt = photo.alt;
+    modalCaption.textContent = photo.closest('.gallery-item').querySelector('figcaption b')?.textContent || photo.alt;
+    imageModal.showModal();
+  };
+
+  photo.addEventListener('click', openPhoto);
+  photo.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      openPhoto();
+    }
+  });
+});
+
+closeImageModal.addEventListener('click', () => imageModal.close());
+imageModal.addEventListener('click', (event) => {
+  if (event.target === imageModal) imageModal.close();
+});

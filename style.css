@@ -539,26 +539,49 @@ body.motion-ready img[data-photo][data-visible]{opacity:1;transform:scale(1)}
 /* Ajusta o recorte para trazer rosto e tronco ao topo; deixa só o CTA principal no hero. */
 @media(max-width:760px){
   /* A imagem inteira cabe na largura do celular, preservando o enquadramento original. */
-  .hero-photo{background-size:210% auto;background-position:94% -20mm;background-repeat:no-repeat;animation:none;transform:none;-webkit-mask-image:none;mask-image:none}
+  .hero-photo{background-size:270% auto;background-position:calc(96.3% - 5mm) calc(-20mm - 2mm);background-repeat:no-repeat;animation:none;transform:none;-webkit-mask-image:none;mask-image:none}
   .hero-shade{background:linear-gradient(180deg,rgba(8,11,9,0) 0%,rgba(8,11,9,0) 53%,rgba(8,11,9,.06) 57%,rgba(8,11,9,.24) 65%,rgba(8,11,9,.58) 74%,rgba(8,11,9,.9) 82%,#080b09 87%,#080b09 100%)}
   .hero-actions .text-link{display:none}
 }
 @media(max-width:760px) and (max-height:720px){
-  .hero-photo{background-size:210% auto;background-position:94% -20mm}
+  .hero-photo{background-size:270% auto;background-position:calc(96.3% - 5mm) calc(-20mm - 2mm)}
 }
 /* Fundo sticky no hero: o retrato acompanha a tela enquanto o texto passa por cima. */
 @media(max-width:760px){
   .hero{display:block;min-height:115svh;height:auto;overflow:clip;padding:0;position:relative}
   /* Escurece um pouco o retrato para dar contraste ao texto sobreposto. */
   .hero-photo{position:sticky;top:70px;left:auto;right:auto;bottom:auto;width:100%;height:calc(100svh - 70px);min-height:0;max-height:none;margin-bottom:calc(70px - 100svh);z-index:0;filter:brightness(.68) saturate(.76) contrast(1.08)}
-  .hero-photo::after{content:"";position:absolute;inset:0 0 auto;height:calc(126.5vw - 20mm);pointer-events:none;background:linear-gradient(180deg,transparent 0%,transparent 50%,rgba(8,11,9,.08) 62%,rgba(8,11,9,.3) 76%,rgba(8,11,9,.72) 90%,#080b09 100%)}
+  .hero-photo::after{content:"";position:absolute;inset:0 0 auto;height:100%;pointer-events:none;background:linear-gradient(180deg,transparent 0%,transparent 42%,rgba(8,11,9,.04) 52%,rgba(8,11,9,.18) 67%,rgba(8,11,9,.45) 82%,rgba(8,11,9,.78) 92%,#0c100d 100%)}
   .hero-shade{display:none}
-  .hero-content{position:relative;z-index:2;width:100%;max-width:540px;margin:0;padding:40svh 24px 24px;animation:none}
+  .hero-content{position:relative;z-index:2;width:100%;max-width:540px;margin:0;padding:calc(40svh + 20mm) 24px 24px;animation:none}
   /* Impede o retrato sticky de aparecer sob o espaço superior da seção seguinte. */
   .quick-facts{position:relative;z-index:2}
   .intro{position:relative;z-index:2;background:var(--bg)}
 }
 @media(max-width:760px) and (max-height:720px){
   .hero{min-height:115svh}
-  .hero-content{padding-top:32svh;padding-bottom:20px}
+  .hero-content{padding-top:calc(32svh + 20mm);padding-bottom:20px}
 }
+/* Setas simples e nítidas nos cards de acompanhamento. */
+.service-arrow{display:none}
+/* No desktop, a foto também fica fixa no hero enquanto a copy passa à frente. */
+@media(min-width:761px){
+  .hero{display:block;height:auto;min-height:150svh;overflow:clip;padding:0;position:relative}
+  .hero-photo{position:sticky;top:82px;left:auto;right:auto;bottom:auto;width:100%;height:calc(100svh - 82px);min-height:0;max-height:none;margin-bottom:calc(82px - 100svh);z-index:0;background-size:cover;background-position:center 42%;transform:none;filter:brightness(.72) saturate(.78) contrast(1.06)}
+  .hero-photo::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(8,11,9,.86) 0%,rgba(8,11,9,.62) 32%,rgba(8,11,9,.12) 72%,rgba(8,11,9,.04) 100%),linear-gradient(180deg,transparent 45%,rgba(8,11,9,.18) 66%,rgba(8,11,9,.62) 85%,#080b09 100%)}
+  .hero-shade{display:none}
+  .hero-content{position:relative;z-index:2;width:min(100%,1080px);max-width:none;margin:0;padding:clamp(72px,12svh,120px) clamp(22px,10vw,150px) 90px;animation:none}
+  .hero-heading-group,.hero-content>p{max-width:660px}
+  .hero-content h1{font-size:clamp(64px,7vw,108px);line-height:.86;margin:22px 0 20px}
+  .hero-index,.hero-vertical{display:none}
+}
+/* A galeria abre as fotos sem recorte em um modal sobre o conteúdo. */
+.gallery-item img[role="button"]{cursor:zoom-in}
+.gallery-item img[role="button"]:focus-visible{outline:2px solid var(--green);outline-offset:4px}
+.image-modal{position:fixed;inset:0;width:min(94vw,1200px);max-width:none;max-height:92svh;padding:52px 24px 20px;border:1px solid #ffffff24;background:rgba(8,11,9,.96);color:var(--white);overflow:visible}
+.image-modal::backdrop{background:rgba(0,0,0,.84);backdrop-filter:blur(8px)}
+.image-modal-photo{display:block;width:100%;height:min(76svh,820px);object-fit:contain}
+.image-modal-caption{margin:14px 0 0;color:#c2c9c2;font-size:13px;text-align:center}
+.image-modal-close{position:absolute;top:10px;right:12px;width:36px;height:36px;border:1px solid #ffffff35;border-radius:50%;background:#101512;color:var(--white);font:300 28px/1 var(--body);cursor:pointer}
+.image-modal-close:hover,.image-modal-close:focus-visible{border-color:var(--green);color:var(--green)}
+@media(max-width:760px){.image-modal{width:calc(100vw - 24px);padding:52px 12px 16px}.image-modal-photo{height:min(76svh,720px)}}
